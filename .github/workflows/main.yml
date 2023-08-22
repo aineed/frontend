@@ -1,0 +1,25 @@
+name: pnpm aineed frontend ci
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [15]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+    - name: docker-pnpm
+      # You may pin to the exact commit or the version.
+      # uses: akccakcctw/docker-pnpm@7ebfcc84773768132808cfd4cb580388c87be37e
+      uses: akccakcctw/docker-pnpm@v1.0.0
